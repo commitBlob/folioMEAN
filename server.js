@@ -13,7 +13,7 @@ const app = express();
 
 // Parsers for POST data
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 // Point static path to angular folder
 app.use(express.static(path.join(__dirname, 'angular')));
@@ -41,4 +41,6 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`Folio API is running on localhost:${port}`));
+server.listen(port, () => {
+  console.log(`Folio API is running on localhost:${port}`);
+});
