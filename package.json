@@ -1,8 +1,8 @@
 {
-  "name": "MEANfolio",
+  "name": "MEAN_Dissimilar",
   "version": "0.1.0",
   "license": "MIT",
-  "author": "Maro",
+  "author": "Maro <maro.radovic12@gmail.com>",
   "private": true,
   "dependencies": {
     "body-parser": "^1.18.3",
