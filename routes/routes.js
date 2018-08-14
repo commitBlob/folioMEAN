@@ -48,3 +48,4 @@ router.post('/notify', (req, res, next) => {
 
 });
 
+module.exports = router;

@@ -7,7 +7,7 @@ const path = require('path');
 const http = require('http');
 
 // Get our API routes
-// const api = require('./server/routes/api');
+const api = require('./routes/routes');
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'angular')));
 
 // Set our api routes
-// app.use('/api', api);
+app.use('/api', api);
 
 
 // Catch all other routes and return the index file
