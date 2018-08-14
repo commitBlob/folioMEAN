@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const mongoClient = require('mongodb').MongoClient;
-const mongoURL = "mongodb://localhost:" + process.env.DB_PORT + "/" + process.env.DB_PROJECT_NAME;
+const mongoURL = "mongodb://localhost:" + process.env.DB_PORT + "/";
 const httpRequest = require('http');
 const request = require('request');
 const moment = require('moment');
 
+const database = process.env.DB_PROJECT_NAME;
 const buildDispatcher = require('../email/dispatcher');
 
 /**
@@ -50,6 +51,21 @@ router.post('/notify', (req, res, next) => {
     res.json(responseMessage);
   }
 
+});
+
+/**
+ * path: api/projectdetails/:projectId
+ * get project details depending on id provided
+ */
+router.get('/projectdetails/:projectId', (req, res, next) => {
+  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+    if (err) throw err;
+    client.db(database).collection('project_details').find({id: parseInt(req.params.projectId)}).toArray( (searchErr, result) => {
+      if (searchErr) throw searchErr;
+      res.json(result);
+      client.close();
+    });
+  });
 });
 
 module.exports = router;
