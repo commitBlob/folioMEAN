@@ -11,6 +11,7 @@ const buildDispatcher = require('../email/dispatcher');
 /**
  * path: api/notify
  * contact form handler
+ * Doesn't work with current creds (2 step authentication)
  */
 router.post('/notify', (req, res, next) => {
   const formData = req.body;
@@ -27,12 +28,14 @@ router.post('/notify', (req, res, next) => {
   };
 
   let responseMessage = {
+    status: '',
     header: '',
     message: ''
   };
 
   if (!formData) {
     res.status(400);
+    responseMessage.status = 'ERROR';
     responseMessage.header = 'ERROR - 400';
     responseMessage.message = 'Whoops, I might have lost your form data. Bummer';
     res.json(responseMessage);
@@ -41,6 +44,7 @@ router.post('/notify', (req, res, next) => {
     console.log('------------ HAVE FORM DATA -------------');
     buildDispatcher.sendEmail(buildTemplate);
     res.status(200);
+    responseMessage.status = 'SUCCESS';
     responseMessage.header = '{AI-bot-name} says Thanks';
     responseMessage.message = '{AI-bot-name} has processed your message, he will make sure it is dispatched to Maro.';
     res.json(responseMessage);
