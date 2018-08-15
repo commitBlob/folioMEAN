@@ -8,6 +8,7 @@ const moment = require('moment');
 
 const database = process.env.DB_PROJECT_NAME;
 const buildDispatcher = require('../email/dispatcher');
+const buildProjects = require('../utils/projectList');
 
 /**
  * path: api/notify
@@ -67,5 +68,41 @@ router.get('/projectdetails/:projectId', (req, res, next) => {
     });
   });
 });
+
+/**
+ * path: api/projectslist
+ * get array of project objects
+ * each object's going to have projectId and projectName
+ */
+router.get('/projectslist', (req, res, next) => {
+  let projectsList = [];
+  mongoClient.connect(mongoURL, {useNewUrlParser: true}, (err, client) => {
+    if (err) throw err;
+    client.db(database).collection('projects').find({active: true}).toArray( (searchErr, result) => {
+      if (searchErr) throw searchErr;
+      projectsList = result;
+      res.json(buildProjects.buildProjectList(projectsList));
+      client.close();
+    });
+  });
+});
+
+/**
+ * path: api/allprojects
+ * get all active projects
+ */
+router.get('/allprojects', (req, res, next) => {
+  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+    if (err) throw err;
+    client.db(database).collection('projects').find({active: true}).toArray( (searchErr, result) => {
+      if (searchErr) throw searchErr;
+      res.json(result);
+      client.close();
+    });
+  });
+});
+
+
+
 
 module.exports = router;
