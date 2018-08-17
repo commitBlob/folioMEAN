@@ -102,6 +102,20 @@ router.get('/allprojects', (req, res, next) => {
   });
 });
 
+/**
+ * path: api/skills
+ * get all skills
+ */
+router.get('/skills', (req, res, next) => {
+  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+    if (err) throw err;
+    client.db(database).collection('skills_list').find().toArray( (searchErr, result) => {
+      if (searchErr) throw searchErr;
+      res.json(result);
+      client.close();
+    });
+  });
+});
 
 
 
