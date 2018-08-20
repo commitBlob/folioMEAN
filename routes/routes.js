@@ -72,7 +72,7 @@ router.get('/projectdetails/:projectId', (req, res, next) => {
 /**
  * path: api/projectslist
  * get array of project objects
- * each object's going to have projectId and projectName
+ * each object's going to have projectId, projectName, and companyLink
  */
 router.get('/projectslist', (req, res, next) => {
   let projectsList = [];
@@ -110,6 +110,21 @@ router.get('/skills', (req, res, next) => {
   mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
     if (err) throw err;
     client.db(database).collection('skills_list').find().toArray( (searchErr, result) => {
+      if (searchErr) throw searchErr;
+      res.json(result);
+      client.close();
+    });
+  });
+});
+
+/**
+ * path: api/skillscontent
+ * get skills content
+ */
+router.get('/skillscontent', (req, res, next) => {
+  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+    if (err) throw err;
+    client.db(database).collection('skills_content').find().toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
       res.json(result);
       client.close();

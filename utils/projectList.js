@@ -5,7 +5,8 @@ exports.buildProjectList = (projectsList) => {
   projectsList.forEach((val) => {
     let projectObj = {
       id: val.projectId,
-      name: val.name
+      name: val.name,
+      companyLink: val.companyLink
     };
     projects.push(projectObj)
   });
