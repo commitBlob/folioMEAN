@@ -147,6 +147,21 @@ router.get('/positions', (req, res, next) => {
   });
 });
 
+/**
+ * path: api/profilepictures
+ * get profile pictures
+ */
+router.get('/profilepictures', (req, res, next) => {
+  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+    if (err) throw err;
+    client.db(database).collection('profile_pictures').find().toArray( (searchErr, result) => {
+      if (searchErr) throw searchErr;
+      res.json(result);
+      client.close();
+    });
+  });
+});
+
 
 
 module.exports = router;
