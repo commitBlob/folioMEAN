@@ -184,7 +184,7 @@ router.get('/socials', (req, res, next) => {
 router.get('/faqs', (req, res, next) => {
   mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
     if (err) throw err;
-    client.db(database).collection('faqs_list').find().toArray( (searchErr, result) => {
+    client.db(database).collection('faqs_list').find({active: true}).toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
       res.json(result);
       client.close();
