@@ -162,6 +162,35 @@ router.get('/profilepictures', (req, res, next) => {
   });
 });
 
+/**
+ * path: api/socials
+ * get list of social icons
+ */
+router.get('/socials', (req, res, next) => {
+  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+    if (err) throw err;
+    client.db(database).collection('social_icons').find().toArray( (searchErr, result) => {
+      if (searchErr) throw searchErr;
+      res.json(result);
+      client.close();
+    });
+  });
+});
+
+/**
+ * path: api/faqs
+ * get faqs
+ */
+router.get('/faqs', (req, res, next) => {
+  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+    if (err) throw err;
+    client.db(database).collection('faqs_list').find().toArray( (searchErr, result) => {
+      if (searchErr) throw searchErr;
+      res.json(result);
+      client.close();
+    });
+  });
+});
 
 
 module.exports = router;
