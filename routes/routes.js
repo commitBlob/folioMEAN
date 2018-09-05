@@ -192,5 +192,19 @@ router.get('/faqs', (req, res, next) => {
   });
 });
 
+/**
+ * path: api/education
+ * get education
+ */
+router.get('/education', (req, res, next) => {
+    mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+        if (err) throw err;
+        client.db(database).collection('education').find().toArray( (searchErr, result) => {
+            if (searchErr) throw searchErr;
+            res.json(result);
+            client.close();
+        });
+    });
+});
 
 module.exports = router;
