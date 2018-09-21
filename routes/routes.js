@@ -47,8 +47,10 @@ router.post('/notify', (req, res, next) => {
     buildDispatcher.sendEmail(buildTemplate);
     res.status(200);
     responseMessage.status = 'SUCCESS';
-    responseMessage.header = '{AI-bot-name} says Thanks';
-    responseMessage.message = '{AI-bot-name} has processed your message, he will make sure it is dispatched to Maro.';
+    responseMessage.header = 'Thanks for contacting me';
+    // responseMessage.header = '{AI-bot-name} says Thanks';
+    responseMessage.message = 'Your email has been delivered to Maro';
+    // responseMessage.message = '{AI-bot-name} has processed your message, he will make sure it is dispatched to Maro.';
     res.json(responseMessage);
   }
 
