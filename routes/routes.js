@@ -141,7 +141,7 @@ router.get('/skillscontent', (req, res, next) => {
 router.get('/positions', (req, res, next) => {
   mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
     if (err) throw err;
-    client.db(database).collection('positions').find().toArray( (searchErr, result) => {
+    client.db(database).collection('positions').find().sort({ order: -1 }).toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
       res.json(result);
       client.close();
