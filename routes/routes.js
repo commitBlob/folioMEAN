@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoClient = require('mongodb').MongoClient;
-const mongoURL = "mongodb://localhost:" + process.env.DB_PORT + "/";
+const mongoURL = "mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@" + process.env.DB_CLUSTER + "/test?retryWrites=true&w=majority";
 const httpRequest = require('http');
 const request = require('request');
 const moment = require('moment');
