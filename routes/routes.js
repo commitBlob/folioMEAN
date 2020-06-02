@@ -9,6 +9,7 @@ const moment = require('moment');
 const database = process.env.DB_PROJECT_NAME;
 const buildDispatcher = require('../email/dispatcher');
 const buildProjects = require('../utils/projectList');
+const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
 /**
  * path: api/notify
@@ -61,7 +62,7 @@ router.post('/notify', (req, res, next) => {
  * get project details depending on id provided
  */
 router.get('/projectdetails/:projectId', (req, res, next) => {
-  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+  mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('project_details').find({id: parseInt(req.params.projectId)}).toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -78,7 +79,7 @@ router.get('/projectdetails/:projectId', (req, res, next) => {
  */
 router.get('/projectslist', (req, res, next) => {
   let projectsList = [];
-  mongoClient.connect(mongoURL, {useNewUrlParser: true}, (err, client) => {
+  mongoClient.connect(mongoURL, mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('projects').find({active: true}).toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -94,7 +95,7 @@ router.get('/projectslist', (req, res, next) => {
  * get all active projects
  */
 router.get('/allprojects', (req, res, next) => {
-  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+  mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('projects').find({active: true}).toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -109,7 +110,7 @@ router.get('/allprojects', (req, res, next) => {
  * get all skills
  */
 router.get('/skills', (req, res, next) => {
-  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+  mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('skills_list').find().toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -124,7 +125,7 @@ router.get('/skills', (req, res, next) => {
  * get skills content
  */
 router.get('/skillscontent', (req, res, next) => {
-  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+  mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('skills_content').find().toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -139,7 +140,7 @@ router.get('/skillscontent', (req, res, next) => {
  * get work experience
  */
 router.get('/positions', (req, res, next) => {
-  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+  mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('positions').find().sort({ order: -1 }).toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -154,7 +155,7 @@ router.get('/positions', (req, res, next) => {
  * get profile pictures
  */
 router.get('/profilepictures', (req, res, next) => {
-  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+  mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('profile_pictures').find().toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -169,7 +170,7 @@ router.get('/profilepictures', (req, res, next) => {
  * get list of social icons
  */
 router.get('/socials', (req, res, next) => {
-  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+  mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('social_icons').find().toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -184,7 +185,7 @@ router.get('/socials', (req, res, next) => {
  * get faqs
  */
 router.get('/faqs', (req, res, next) => {
-  mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+  mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
     if (err) throw err;
     client.db(database).collection('faqs_list').find({active: true}).sort({position: 1}).toArray( (searchErr, result) => {
       if (searchErr) throw searchErr;
@@ -199,7 +200,7 @@ router.get('/faqs', (req, res, next) => {
  * get education
  */
 router.get('/education', (req, res, next) => {
-    mongoClient.connect(mongoURL,  { useNewUrlParser: true }, (err, client) => {
+    mongoClient.connect(mongoURL,  mongoOptions, (err, client) => {
         if (err) throw err;
         client.db(database).collection('education').find().toArray( (searchErr, result) => {
             if (searchErr) throw searchErr;

@@ -4,6 +4,9 @@
   "license": "MIT",
   "author": "Maro <maro.radovic12@gmail.com>",
   "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",

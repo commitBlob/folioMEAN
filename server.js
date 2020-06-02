@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Point static path to angular folder
-app.use(express.static(path.join(__dirname, 'angular')));
+app.use(express.static(path.join(__dirname, '/')));
 
 // Set our api routes
 app.use('/api', api);
@@ -24,7 +24,7 @@ app.use('/api', api);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'angular/index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 /**
