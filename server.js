@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Point static path to angular folder
-app.use(express.static(path.join(__dirname, '/')));
+app.use(express.static(path.join(__dirname, 'angular/')));
 
 // Set our api routes
 app.use('/api', api);
