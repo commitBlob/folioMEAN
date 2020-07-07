@@ -11,6 +11,9 @@ const api = require('./routes/routes');
 
 const app = express();
 
+// stop disclosing engine
+app.disable('x-powered-by');
+
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
