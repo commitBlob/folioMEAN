@@ -5,11 +5,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
+const helmet = require('helmet');
 
 // Get our API routes
 const api = require('./routes/routes');
 
 const app = express();
+
+// put the helmet on
+app.use(helmet())
 
 // stop disclosing engine
 app.disable('x-powered-by');
